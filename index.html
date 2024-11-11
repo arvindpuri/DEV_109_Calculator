@@ -4,92 +4,74 @@
 <head>
   <meta charset="utf-8">
   <meta name="author" content="Tiger Puri">
-  <meta name="description" content="Coding Exercise Contacts">
+  <meta name="description" content="Coding Exercise Calculator">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Tiger Puri Contacts</title>
+  <title>Tiger Puri Calculator</title>
 
-  <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background-color: #f5f5f5;
-        color: #333;
-    }
-    h1 {
-        color: #4CAF50;
-    }
-    .contact-list {
-        list-style-type: none;
-        margin-bottom: 10px;
-        white-space: pre;
 
-    }
-    .contact-item {
-        margin-bottom: 5px;
-        list-style-type: none;
-        white-space: pre;
-
-    }
-    .exit-message {
-        text-align: center;
-        margin-top: 50px;
-        padding: 20px;
-        background-color: #fff3cd;
-    }
-  </style>
 
 </head>
 
 <body>
-  <h1>Tiger Puri Contacts</h1><br>
+  <h1>Tiger Puri Calculator</h1><br>
 
-   <!-- Creating a display area for the contacts -->
-   <p id="contactList"></p>
-
-  <div class="exit-message" id="exitMessage" style="display:none;">
-      Hope you liked my Contacts app!
-  </div>
 
   <script>
-      // Initialize the contacts array
-      const contacts = ["Arnold", "Sly", "Dwayne", "Vin", "JCVD", "Steven"];
+    let continueCalculating = true;
 
-      // Display contacts on page load
-      const contactList = document.getElementById('contactList');
-      document.getElementById('contactList').textContent=(`Slot #` + '        ' +`Contact Name`);
-      for (let slot = 0; slot < contacts.length; slot++) {
-          const listItem = document.createElement('li');
-          listItem.className = 'contact-item';
-          listItem.textContent = `${slot} ${contacts[slot]}`;
-          contactList.appendChild(listItem);
+    while (continueCalculating) {
+      // Step 1: Prompt the user to enter numbers and store them in an array
+      let numbers = [];
+      let moreNumbers = true;
+    
+      while (moreNumbers) {
+        let input = prompt("Enter a number:");
+        if (input !== null && !isNaN(input)) {
+          numbers.push(Number(input));
+          // Step 3: Tell the user how many numbers are entered
+          alert(`You have entered ${numbers.length} number(s).`);
+        } else {
+          alert("Please enter a valid number.");
+        }
+    
+        // Step 2: Ask if the user wants to enter more numbers
+        moreNumbers = confirm("Do you want to enter more numbers?");
       }
-
-      // Handle user interaction via prompts
-      let continuePrompting = true;
-
-      while (continuePrompting) {
-          const entryNumber = prompt("Please provide an Entry Number:");
-
-          if (entryNumber !== null && !isNaN(entryNumber) && entryNumber >= 0 && entryNumber < contacts.length) {
-              const name = contacts[entryNumber];
-              const message = `Displaying ${name}.\nDo you want to make another selection? y/n`;
-              const response = prompt(message);
-
-              if (response.toLowerCase() !== 'y') {
-                  continuePrompting = false;
-                  document.getElementById('exitMessage').style.display = 'block';
-              }
-          } else {
-              const message = `That Entry is not in the Database.\nDo you want to make another selection? y/n`;
-              const response = prompt(message);
-
-              if (response.toLowerCase() !== 'y') {
-                  continuePrompting = false;
-                  document.getElementById('exitMessage').style.display = 'block';
-              }
-          }
+    
+      // Step 4: Prompt with operation selection
+      let operation = prompt("Select an operation (+ for add, - for subtract, * for multiply, / for divide):");
+    
+      // Validate operation and perform calculation
+      let result;
+      if (operation === "/") {
+        if (numbers.length !== 2) {
+          alert("Division requires exactly two numbers. Please start over.");
+          continue;
+        } else {
+          result = numbers[0] / numbers[1];
+        }
+      } else if (operation === "+") {
+        result = numbers.reduce((acc, num) => acc + num, 0);
+      } else if (operation === "-") {
+        result = numbers.reduce((acc, num) => acc - num);
+      } else if (operation === "*") {
+        result = numbers.reduce((acc, num) => acc * num, 1);
+      } else {
+        alert("Invalid operation selected. Please start over.");
+        continue;
       }
+    
+      // Step 5: Display the calculation result along with how many numbers were entered
+      alert(`The result of your calculation is ${result}. You entered ${numbers.length} number(s).`);
+    
+      // Step 6: Ask the user if they want to perform another calculation
+      continueCalculating = confirm("Do you want to perform another calculation?");
+    }
+    
+    // Step 7: Goodbye message
+    alert("Thank you for using the calculator! Have a great day!");
+    
   </script>
     
 
