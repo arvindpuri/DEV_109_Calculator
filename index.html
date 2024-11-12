@@ -28,7 +28,7 @@
       let input = prompt("Welcome to the calculator. Enter a number:");
       if (input !== null && !isNaN(input)) {
         numbers.push(Number(input));
-        moreNumbers = confirm("You entered "+ `${input}` +". Enter another y/n?");
+        
         response = prompt("You entered "+ `${input}` +". Enter another y/n?");
         if (response.toLowerCase() !== 'y') {
             moreNumbers = false;
