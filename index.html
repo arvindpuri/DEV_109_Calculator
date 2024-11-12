@@ -21,26 +21,37 @@
     let continueCalculating = true;
 
     while (continueCalculating) {
-      // Step 1: Prompt the user to enter numbers and store them in an array
+      // Prompt the user to enter numbers and store them in an array
       let numbers = [];
       let moreNumbers = true;
     
+      let input = prompt("Welcome to the calculator. Enter a number:");
+      if (input !== null && !isNaN(input)) {
+        numbers.push(Number(input));
+        moreNumbers = confirm("You entered "+ `${input}` +". Enter another y/n?");
+        response = prompt("You entered "+ `${input}` +". Enter another y/n?");
+        if (response.toLowerCase() !== 'y') {
+            moreNumbers = false;
+         } 
+    }
       while (moreNumbers) {
         let input = prompt("Enter a number:");
         if (input !== null && !isNaN(input)) {
           numbers.push(Number(input));
-          // Step 3: Tell the user how many numbers are entered
-          alert(`You have entered ${numbers.length} number(s).`);
-        } else {
-          alert("Please enter a valid number.");
+          // Tell the user how many numbers are entered
+          // Ask if the user wants to enter more numbers
+          response = prompt("You entered "+ `${numbers.length}` +" number(s). Are there more y/n?");
+          if (response.toLowerCase() !== 'y') {
+              moreNumbers = false;
+           } 
         }
     
-        // Step 2: Ask if the user wants to enter more numbers
-        moreNumbers = confirm("Do you want to enter more numbers?");
+        
+        
       }
     
-      // Step 4: Prompt with operation selection
-      let operation = prompt("Select an operation (+ for add, - for subtract, * for multiply, / for divide):");
+      // Prompt with operation selection
+      let operation = prompt("What operation would you like to perform +, -, *, / ?");
     
       // Validate operation and perform calculation
       let result;
@@ -62,14 +73,15 @@
         continue;
       }
     
-      // Step 5: Display the calculation result along with how many numbers were entered
-      alert(`The result of your calculation is ${result}. You entered ${numbers.length} number(s).`);
-    
-      // Step 6: Ask the user if they want to perform another calculation
-      continueCalculating = confirm("Do you want to perform another calculation?");
+      // Display the calculation result along with how many numbers were entered
+      // Ask the user if they want to perform another calculation
+      response = prompt("You entered" + `${numbers.length}` + "number(s). Your answer is" + `${result}` + ". Do you want to perform another calculation y/n?");
+          if (response.toLowerCase() !== 'y') {
+            continueCalculating = false;
+          }
     }
     
-    // Step 7: Goodbye message
+    // Goodbye message
     alert("Thank you for using the calculator! Have a great day!");
     
   </script>
